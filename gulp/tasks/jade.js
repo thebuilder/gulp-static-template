@@ -1,6 +1,6 @@
 var gulp         = require('gulp');
 
-var readJson     = require("../util/readJsonFiles");
+var json     = require("../util/readJsonFiles");
 var config       = require('../config');
 
 gulp.task('jade', function() {
@@ -33,5 +33,5 @@ gulp.task('jade', function() {
 
 function getData(file) {
     //Read .json data from the jadeData directory, and make it accessible to Jade.
-    return readJson(config.jade.data)
+    return json.getObject(config.jade.data)
 }
