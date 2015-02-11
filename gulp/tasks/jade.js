@@ -1,6 +1,6 @@
 var gulp         = require('gulp');
 
-var json     = require("../util/readJsonFiles");
+var json         = require("../util/readJsonFiles");
 var config       = require('../config');
 
 gulp.task('jade', function() {

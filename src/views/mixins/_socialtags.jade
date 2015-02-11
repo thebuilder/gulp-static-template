@@ -1,0 +1,56 @@
+//- A mixin containing the standard social tags that should be used on a website.
+//- Taken from: http://moz.com/blog/meta-data-templates-123
+//-
+//- Include in header as a mixin with:
+//- +social(title, description, twitterProps, facebookProps)
+
+mixin social(title, description, twitter, facebook)
+  if description
+    //- Page description
+    meta(name="description" content=description)
+
+  if twitter
+    //- Twitter Card data, short summary
+    if twitter.card
+      meta(name="twitter:card" content=twitter.card)
+    //- site or publisher - @publisher_handle
+    if twitter.site
+      meta(name="twitter:site" content=twitter.site)
+      
+    //- Page title
+    if twitter.title || title
+    meta(name="twitter:title" content=(twitter.title ? twitter.title : title))
+    //- Page description less than 200 characters
+    if twitter.description
+      meta(name="twitter:description" content=twitter.description)
+    else if description && description.length <= 200
+      meta(name="twitter:description" content=description)
+    //Creator/writer of the content on the page - @author_handle
+    if twitter.creator
+      meta(name="twitter:creator" content=twitter.creator)
+    //- Twitter Summary card images must be at least 200x200px - http://www.example.com/image.jpg
+    if twitter.image
+      meta(name="twitter:image" content=twitter.image)
+
+  //- Open Graph data
+  if facebook
+    if facebook.title || title
+      meta(property="og:title" content=(facebook.title ? facebook.title : title))
+    //-Type of content on the page. Defaults to 'article'
+    meta(property="og:type" content=(facebook.type ? facebook.type : 'article'))
+    //- Site url
+    if facebook.url
+      meta(property="og:url" content=facebook.url )
+    if facebook.image
+      meta(property="og:image" content=facebook.image)
+    if facebook.description || description
+      meta(property="og:description" content=(facebook.description ? facebook.description : description))
+    //- Website name
+    if facebook.site
+      meta(property="og:site_name" content=facebook.site)
+    //- Comma seperated list of FB admin ids
+    if facebook.admins
+      meta(property="fb:admins" content=facebook.admins)
+    if facebook.appId
+      //- Single app id
+      meta(property="fb:app_id" content=facebook.appId)

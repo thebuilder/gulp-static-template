@@ -17,12 +17,6 @@ The following tools are required when developing the project locally:
 
 		npm install -g gulp
 
-* [Bower](http://bower.io/ "Bower")
-  Make sure Bower is installed globally.
-
-		npm install -g bower
-
-
 After the required tools are installed, you should download the required Node modules by calling:
 
 	npm install

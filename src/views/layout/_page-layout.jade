@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="chrome=1")
+    meta(name="viewport" content="width=device-width")
+    link(rel="stylesheet", type="text/css", href='css/vendor.min.css')
+    link(rel="stylesheet", type="text/css", href='css/app.css')
+
+    block head
+  body(ng-app="gulpApp")
+    block content
+
+    script(src='js/vendor.min.js')
+
+    if isProduction
+      script(src='js/app.min.js')
+    else
+      script(src='js/app.js')

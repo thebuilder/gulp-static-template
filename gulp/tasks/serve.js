@@ -15,8 +15,13 @@ gulp.task('serve',  function(){
 
 	//Serve the static files.
     app.use(serveStatic(config.dist));
+
+    //Serve index page
     app.use(serveIndex(config.dist));
-    app.use('/' + config.src, serveStatic(config.src)); //Serve the src directory, so it can be used with source maps
+
+    // Serve the src directory, so it can be used with source maps:
+    app.use('/src', serveStatic(config.src));
+    app.use('/bower_components', serveStatic('bower_components/'));
 
     var server = http.createServer(app);
     server.listen(config.server.port);

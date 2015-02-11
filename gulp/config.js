@@ -1,13 +1,9 @@
-var path = require('path');
-
 module.exports = {
 	//Paths
 	src: 'src/',
 	dist: 'dist/',
 
 	server: {
-		root: path.resolve('./templates/static/'),
-		indexFile: 'index.html',
 		port: '3000',
 		log: false
 	},
@@ -52,8 +48,5 @@ module.exports = {
 	img: {
 		src: 'src/images/**/{*.png,*.jpg,*.gif,*.svg,*.ico}',
 		dir: 'images'
-	},
-
-	//Runtime vars. These are used by tasks.
-	isReleaseBuild: false
+	}
 };
