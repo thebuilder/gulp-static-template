@@ -1,4 +1,7 @@
+var gulp         = require('gulp');
+var gutil        = require('gulp-util');
 var config       = require('../config');
+
 module.exports = function() {
 	//If watch mode, start watching for changes.
 	if (config.isWatching()) {
@@ -15,8 +18,6 @@ module.exports = function() {
  */
 function execute() {
 	//Inject all required files
-	var gulp         = require('gulp');
-	var gutil        = require('gulp-util');
 	var less         = require('gulp-less');
 	var sourcemaps   = require('gulp-sourcemaps');
 	var plumber      = require('gulp-plumber');
@@ -25,13 +26,12 @@ function execute() {
 	return gulp.src('src/less/*.less')
 		// Pass in options to the task
 		.pipe(sourcemaps.init())
-
 		.pipe(less({
 			plugins: getPlugins()
 		}))
 
 		//If dev build, include LiveReload server
-		.pipe(process.env.IS_PRODUCTION ? sourcemaps.write({sourceRoot:'http://localhost:'+config.server.port+'/src/'}) : gutil.noop())
+		.pipe(config.isProduction() ? sourcemaps.write({sourceRoot:'http://localhost:'+config.server.port+'/src/'}) : gutil.noop())
 		.pipe(gulp.dest('dist/css'));
 }
 
@@ -47,7 +47,7 @@ function getPlugins() {
 	var plugins = [];
 	plugins.push(new LessPluginAutoPrefix({browsers: ["last 2 versions"]}));
 
-	if (process.env.IS_PRODUCTION) {
+	if (config.isProduction()) {
 		plugins.push(new LessPluginCleanCSS({advanced: true}));
 	}
 

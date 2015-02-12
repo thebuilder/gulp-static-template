@@ -47,12 +47,6 @@ function execute(stream) {
 		.pipe(gulp.dest(config.dist + config.img.dir));
 }
 
-function onFilterAdded(file) {
-	return file.event == 'add';
-}
-function onFilterChanged(file) {
-	return file.event == 'change';
-}
 function onFilterUnlinked(file) {
 	return file.event == 'unlink';
 }

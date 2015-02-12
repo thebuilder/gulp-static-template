@@ -1,14 +1,14 @@
+var gutil = require('gulp-util');
+var config  = require('../config');
+var handleErrors = require('../util/handleErrors');
+
 /**
  * Setup a local webserver.
  */
 module.exports = function(done) {
-	var gutil = require('gulp-util');
 	var connect = require('connect');
 	var http    = require('http');
 	var serveStatic = require('serve-static');
-
-	var config  = require('../config');
-	var handleErrors = require('../util/handleErrors');
 	var ip = require('../util/ip');
 
 	var app = connect();
@@ -26,5 +26,20 @@ module.exports = function(done) {
 
 	gutil.log("Webserver: " + gutil.colors.magenta("http://localhost:" + config.server.port) + " or " + gutil.colors.magenta("http://" + ip() + ":" + config.server.port));
 
+	liveReloadWatcher();
 	done();
 };
+
+/*
+* Watch all files in the dist directory, and trigger livereload on changes.
+*/
+function liveReloadWatcher() {
+	var watch = require('gulp-watch');
+	var liveReload = require('gulp-livereload');
+
+	//Configure LiveReload, and watch for changes in the dist directory.
+	liveReload.listen({quiet:truec, start:true, basePath: 'dist'});
+	gutil.log('LiveReload: ' + gutil.colors.magenta('Port ' + liveReload.server.port));
+	watch(config.dist + '**/*.*')
+		.pipe(liveReload());
+}
