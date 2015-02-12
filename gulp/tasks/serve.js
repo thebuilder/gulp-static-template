@@ -38,7 +38,7 @@ function liveReloadWatcher() {
 	var liveReload = require('gulp-livereload');
 
 	//Configure LiveReload, and watch for changes in the dist directory.
-	liveReload.listen({quiet:truec, start:true, basePath: 'dist'});
+	liveReload.listen({quiet:true, start:true, basePath: 'dist'});
 	gutil.log('LiveReload: ' + gutil.colors.magenta('Port ' + liveReload.server.port));
 	watch(config.dist + '**/*.*')
 		.pipe(liveReload());
