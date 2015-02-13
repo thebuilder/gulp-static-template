@@ -1,9 +1,3 @@
-var gutil = require('gulp-util');
-
-//Parse the params
-var tasks = gutil.env._; //All the tasks passed to gulp
-process.env.WATCHING = tasks.indexOf('watch') > -1 || gutil.env.watch || 'false'; //Watch task, or watch flag passed
-
 module.exports = {
 	//Paths
 	src: 'src/',

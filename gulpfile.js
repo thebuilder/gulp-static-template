@@ -1,6 +1,7 @@
 var gulp = require('gulp');
-var config = require("./gulp/config");
 
+//Start with parsing arguments.
+parseArguments();
 
 //Tasks in the project
 gulp.task('browserify', require('./gulp/tasks/browserify'));
@@ -26,4 +27,19 @@ function configureProd(done) {
 	process.env.WATCHING = 'false';
 
 	if (done) done();
+}
+
+/**
+ * Parse the commandline arguments passed to Gulp
+ */
+function parseArguments() {
+	var gutil = require('gulp-util');
+	var tasks = gutil.env._; //All the tasks passed to gulp
+	process.env.WATCHING = tasks.indexOf('watch') > -1 || gutil.env['watch'] || 'false'; //Watch task, or watch flag passed
+	if (process.env.WATCHING == 'true') gutil.log(gutil.colors.green("Watching"));
+
+	if (gutil.env['release'] || gutil.env['r'] || gutil.env['target'] == 'production') {
+		process.env.NODE_ENV = 'production';
+		gutil.log("Target ENV: " + gutil.colors.green(process.env.NODE_ENV));
+	}
 }

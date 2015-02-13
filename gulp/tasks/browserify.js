@@ -1,6 +1,7 @@
 var gulp = require("gulp");
 var gutil = require("gulp-util");
 var path = require("path");
+var handleErrors = require("../util/handleErrors");
 var source = require('vinyl-source-stream');
 var _ = require('lodash');
 
@@ -60,8 +61,8 @@ function addProdTransforms(bundler) {
 function bundle(bundler) {
 	return bundler.bundle()
 		.on('error', function(error) {
-			gutil.log(gutil.colors.red(error.annotated)); //annotated contains useful info to determine where the error occured
-			gutil.beep();
+			handleErrors(error); //Break the pipe by placing error handler outside
+			this.emit('end');
 		})
 		.pipe(source(config.isProduction() ? 'app.min.js' : 'app.js'))
 		.pipe(gulp.dest(config.dist + config.js.dir))
