@@ -3,22 +3,31 @@ var gulp = require('gulp');
 //Start with parsing arguments.
 parseArguments();
 
-configureTasks();
 
-function configureTasks() {
-	//Tasks in the project
-	gulp.task('browserify', require('./gulp/tasks/browserify'));
-	gulp.task('less', require('./gulp/tasks/less'));
-	gulp.task('images', require('./gulp/tasks/images'));
-	gulp.task('jade', require('./gulp/tasks/jade'));
-	gulp.task('serve', require('./gulp/tasks/serve'));
+/*******************
+ * GULP TASKS
+ *******************/
+//Tasks in the project
+gulp.task('browserify', require('./gulp/tasks/browserify'));
+gulp.task('less', require('./gulp/tasks/less'));
+gulp.task('images', require('./gulp/tasks/images'));
+gulp.task('jade', require('./gulp/tasks/jade'));
+gulp.task('serve', require('./gulp/tasks/serve'));
 
-	//Task aliases - These tasks combines multiple tasks to accomplish what you need.
-	gulp.task('build', gulp.series('browserify', 'less', 'jade', 'images'));
+//Task aliases - These tasks combines multiple tasks to accomplish what you need.
+gulp.task('build', gulp.series('browserify', 'less', 'jade', 'images'));
 
-	gulp.task('release', gulp.series(configureProd, 'build'));
-	gulp.task('default', gulp.series(watch, 'build', 'serve'));
-}
+//Main entry tasks
+gulp.task('release', gulp.series(configureProd, 'build'));
+gulp.task('default', gulp.series(watch, 'build', 'serve'));
+
+
+
+
+/*******************
+ * Private methods
+ * These methods are used to configure the environment.
+ *******************/
 
 function watch(done) {
 	process.env.WATCHING = 'true';
@@ -48,6 +57,7 @@ function parseArguments() {
 
 	if (process.env.WATCHING == 'true') gutil.log(gutil.colors.green("Watching"));
 
+	//Check for release or production target flag
 	if (gutil.env['release'] || gutil.env['r'] || gutil.env['target'] == 'production') {
 		process.env.NODE_ENV = 'production';
 		gutil.log("Target ENV: " + gutil.colors.green(process.env.NODE_ENV));
