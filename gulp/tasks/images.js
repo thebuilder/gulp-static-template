@@ -5,8 +5,7 @@ module.exports = function() {
 	if (config.isWatching()) {
 		var watch = require('gulp-watch');
 		//Create a watch stream. It will trigger execute when a file is changed
-		var stream = watch(config.img.src);
-		execute(stream);
+		execute(watch(config.img.src));
 	}
 
 	return execute(gulp.src(config.img.src));
@@ -39,7 +38,6 @@ function execute(stream) {
 			del(file.path, cb);
 		}))
 		.pipe(filterUnlinked.restore())
-
 		//Process the images
 		.pipe(imagemin({
 			progressive: true

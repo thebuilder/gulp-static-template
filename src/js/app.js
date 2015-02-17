@@ -1,1 +1,3 @@
-console.log("Hello JS");
+console.log('Hello JS');
+
+require('./test');

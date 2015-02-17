@@ -5,7 +5,6 @@ var supportsNotifications = true;//!process.env["CI"]; //Disable notifications o
 
 module.exports = function() {
     var args = Array.prototype.slice.call(arguments) || {};
-    console.log(args);
     if (supportsNotifications) {
         // Send error to notification center with gulp-notify
         notify.onError({
