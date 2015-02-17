@@ -8,41 +8,20 @@ module.exports = {
 		log: false
 	},
 
-	test: {
-		root: 'test/',
-		bundleDir: 'test/bundle/',
-		bundleFile: 'test.bundle.js',
-		coverageFile: 'app.coverage.js',
-		spec: 'src/**/*.spec.js',
-		specWatch: 'src/js/**/*',
-		e2e: 'test/scenarios/**/*.scenario.js'
-	},
-
 	js: {
 		src: 'src/js/app.js',
-		dir: 'js',
-		name: 'app.js'
+		watch: 'src/js/**/*.js'
 	},
 
 	less: {
 		src: ['src/less/*.less', '!src/less/_*.less'],
-		watch: 'src/less/**/*',
-		dir: 'css',
-		name: 'app.less'
+		watch: 'src/less/**/{*.less,*.css}'
 	},
 
 	jade: {
 		src: ['src/views/**/*.jade', '!src/views/**/_*.jade'],
-		dir: '',
+		watch: 'src/views/**/*.*',
 		data: 'src/data/'
-	},
-
-
-	assets: {
-		src: ['fonts/**',
-			'thirdparty/**',
-			'!thirdparty/**/*.md'
-		]
 	},
 
 	img: {

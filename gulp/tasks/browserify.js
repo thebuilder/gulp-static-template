@@ -64,6 +64,7 @@ function bundle(bundler) {
 			handleErrors(error); //Break the pipe by placing error handler outside
 			this.emit('end');
 		})
+		//Output the .js file
 		.pipe(source(config.isProduction() ? 'app.min.js' : 'app.js'))
 		.pipe(gulp.dest(config.dist + config.js.dir))
 }

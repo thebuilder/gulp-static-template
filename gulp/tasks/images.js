@@ -18,6 +18,7 @@ module.exports = function() {
  */
 function execute(stream) {
 	var imagemin   	= require('gulp-imagemin');
+	var svg2png   	= require('gulp-svg2png');
 	var changed    	= require('gulp-changed');
 	var plumber    	= require('gulp-plumber');
 	var filter    	= require('gulp-filter');
@@ -25,10 +26,12 @@ function execute(stream) {
 	var del    		= require('del');
 	var path 		= require('path');
 
+	var handleErrors = require('../util/handleErrors');
+
 	var filterUnlinked = filter(onFilterUnlinked);
 
 	return stream
-		.pipe(plumber())
+		.pipe(plumber({errorHandler:handleErrors}))
 		.pipe(changed(config.dist + config.img.dir)) // Ignore unchanged files
 
 		//Delete unlinked files from dist
@@ -38,10 +41,19 @@ function execute(stream) {
 			del(file.path, cb);
 		}))
 		.pipe(filterUnlinked.restore())
-		//Process the images
+
+		//Minify the images
 		.pipe(imagemin({
 			progressive: true
 		}))
+
+		//Output all the images
+		.pipe(gulp.dest(config.dist + config.img.dir))
+
+		//Convert all SVG files to PNG, and output into the image directory.
+		//Allows you create .png fallbacks in browsers without .svg support
+		.pipe(filter('**/*.svg'))
+		.pipe(svg2png())
 		.pipe(gulp.dest(config.dist + config.img.dir));
 }
 

@@ -6,7 +6,7 @@ module.exports = function() {
 	//If watch mode, start watching for changes.
 	if (config.isWatching()) {
 		var watch = require('gulp-watch');
-		watch('src/less/**/*.less', execute);
+		watch(config.less.watch, execute);
 	}
 
 	//Execute the less task
@@ -24,7 +24,7 @@ function execute() {
 	var plumber      = require('gulp-plumber');
 	var handleErrors = require('../util/handleErrors');
 
-	return gulp.src('src/less/*.less')
+	return gulp.src(config.less.src)
 		// Pass in options to the task
 		.pipe(plumber({errorHandler:handleErrors}))
 		.pipe(sourcemaps.init())
@@ -37,7 +37,7 @@ function execute() {
 		.pipe(config.isProduction() ? rename(function(file) {
 			file.basename += ".min";
 		}) : gutil.noop())
-		.pipe(gulp.dest('dist/css'));
+		.pipe(gulp.dest(config.dist + 'css'));
 }
 
 /**

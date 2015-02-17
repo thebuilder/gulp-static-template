@@ -5,7 +5,7 @@ module.exports = function() {
 	//If watch mode, start watching for changes.
 	if (config.isWatching()) {
 		var watch = require('gulp-watch');
-		watch('src/views/**/*.*', execute);
+		watch(config.jade.watch, execute);
 	}
 
 	return execute();
