@@ -2,6 +2,7 @@ var gutil = require('gulp-util');
 var config  = require('../config');
 var handleErrors = require('../util/handleErrors');
 
+
 /**
  * Setup a local webserver.
  */
@@ -12,13 +13,19 @@ module.exports = function(done) {
 	var ip = require('../util/ip');
 
 	var app = connect();
+	//Configure server to inject LiveReload script
+	app.use(serveStatic('node_modules/livereload-js/dist/'));
+	app.use(require('connect-livereload')({
+		src: "http://" + ip() + ":35729/livereload.js?snipver=1"
+	}));
 
 	//Serve the static files.
 	app.use(serveStatic(config.dist));
 
-	// Serve the src directory, so it can be used with source maps:
-	app.use('/src', serveStatic(config.src));
-	app.use('/bower_components', serveStatic('bower_components/'));
+
+	// Serve the src directory, so it can be used with source maps - Doesn't seem to be necessary anymore
+	//app.use('/src', serveStatic(config.src));
+	//app.use('/bower_components', serveStatic('bower_components/'));
 
 	var server = http.createServer(app);
 	server.listen(config.server.port);

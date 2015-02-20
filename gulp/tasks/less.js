@@ -32,8 +32,7 @@ function execute() {
 			plugins: getPlugins()
 		}))
 
-		//If dev build, include LiveReload server
-		.pipe(!config.isProduction() ? sourcemaps.write({sourceRoot:'http://localhost:'+config.server.port+'/src/'}) : gutil.noop())
+		.pipe(!config.isProduction() ? sourcemaps.write() : gutil.noop())
 		.pipe(config.isProduction() ? rename(function(file) {
 			file.basename += ".min";
 		}) : gutil.noop())

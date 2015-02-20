@@ -66,7 +66,7 @@ function bundle(bundler) {
 		})
 		//Output the .js file
 		.pipe(source(config.isProduction() ? 'app.min.js' : 'app.js'))
-		.pipe(gulp.dest(config.dist + config.js.dir))
+		.pipe(gulp.dest(config.dist + 'js'))
 }
 
 /**

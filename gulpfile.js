@@ -13,15 +13,14 @@ gulp.task('less', require('./gulp/tasks/less'));
 gulp.task('images', require('./gulp/tasks/images'));
 gulp.task('jade', require('./gulp/tasks/jade'));
 gulp.task('serve', require('./gulp/tasks/serve'));
+gulp.task('karma', require('./gulp/tasks/karma'));
 
 //Task aliases - These tasks combines multiple tasks to accomplish what you need.
 gulp.task('build', gulp.series('browserify', 'less', 'jade', 'images'));
 
 //Main entry tasks
 gulp.task('release', gulp.series(configureProd, 'build'));
-gulp.task('default', gulp.series(watch, 'build', 'serve'));
-
-
+gulp.task('default', gulp.series(watch, 'build', 'karma', 'serve'));
 
 
 /*******************
@@ -30,11 +29,11 @@ gulp.task('default', gulp.series(watch, 'build', 'serve'));
  *******************/
 
 function watch(done) {
-	process.env.WATCHING = 'true';
-	if (!process.env.MONITOR_GULP) {
+	if (process.env.MONITOR_GULP == 'true') {
 		//Start the Gulp Monitor process. This will stop the current gulp task flow in this process - It will be restarted in the new instance.
 		require('./gulp/tasks/monitor')();
 	} else {
+		process.env.WATCHING = 'true';
 		done();
 	}
 }
@@ -62,4 +61,7 @@ function parseArguments() {
 		process.env.NODE_ENV = 'production';
 		gutil.log("Target ENV: " + gutil.colors.green(process.env.NODE_ENV));
 	}
+
+	//Check for monitor
+	process.env.MONITOR_GULP = gutil.env["monitor"] ? 'true' : 'false';
 }

@@ -4,7 +4,6 @@ html(lang="en")
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="chrome=1")
     meta(name="viewport" content="width=device-width")
-    link(rel="stylesheet", type="text/css", href='css/vendor.min.css')
     if isProduction
       link(rel="stylesheet", type="text/css", href='css/app.min.css')
     else
@@ -14,7 +13,7 @@ html(lang="en")
   body(ng-app="gulpApp")
     block content
 
-    script(src='js/vendor.min.js')
+    //script(src='js/vendor.min.js')
 
     if isProduction
       script(src='js/app.min.js')

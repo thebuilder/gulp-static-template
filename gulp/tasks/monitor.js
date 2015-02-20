@@ -7,18 +7,13 @@ var spawnProcess;
  **/
 module.exports = function monitor(cb) {
 	//Start by creating the child process.
-	if (!process.env.MONITOR_GULP) {
-		//Set env variable, so we know we are running the monitor
-		process.env.MONITOR_GULP = 'true';
+	gutil.log(gutil.colors.yellow("Gulp Monitor - Spawning child process"));
 
-		gutil.log(gutil.colors.yellow("Gulp Monitor - Spawning child process"));
+	//Watch the gulpfile.js and Gulp directory. If anything changes, restart the current Gulp task.
+	watch(['gulpfile.js', 'package.json', 'gulp/**/*.js'], restartGulpProcess);
 
-		//Watch the gulpfile.js and Gulp directory. If anything changes, restart the current Gulp task.
-		watch(['gulpfile.js', 'package.json', 'gulp/**/*.js'], restartGulpProcess);
-
-		//Restart to create the child process.
-		restartGulpProcess();
-	} else if (cb) cb(); //If Gulp task callback, trigger it
+	//Restart to create the child process.
+	restartGulpProcess();
 };
 
 /**
@@ -42,7 +37,7 @@ function restartGulpProcess(file) {
 
 	//Find all arguments added.
 	for (var key in gutil.env) {
-		if (key != "_") {
+		if (key != "_" && key != "monitor") {
 			args.push('--' + key);
 		}
 	}
