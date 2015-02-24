@@ -32,7 +32,7 @@ gulp.task('dev', function(done) {
 
 gulp.task('release', function(done) {
 	args.production();
-	sequence('build', done)
+	sequence('build', 'karma', done)
 });
 
 gulp.task('default', ['dev']);
