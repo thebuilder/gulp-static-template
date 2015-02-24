@@ -5,6 +5,7 @@ var config = require('../config');
 
 module.exports = function(done) {
 	var karma = require('karma').server;
+
 	var opts = {
 		configFile: path.resolve('karma.conf.js'),
 		singleRun: !config.isWatching(),
@@ -15,6 +16,11 @@ module.exports = function(done) {
 	//Test more browsers in release build.
 	if (config.isProduction()) {
 		opts.browsers = ["Chrome", "Firefox", "PhantomJS"];
+	}
+
+	//Add the clear-screen reporter when watching.
+	if (opts.autoWatch) {
+		opts.reporters = ['progress', 'clear-screen'];
 	}
 
 	karma.start(opts, function (exitCode) {
