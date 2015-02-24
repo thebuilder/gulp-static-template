@@ -12,14 +12,6 @@ The following tools are required when developing the project locally:
 * [Node.js](http://nodejs.org/ "Node")
   Make sure node is installed and paths are configured, so you can use **npm** from the terminal.
 
-* [Gulp](https://github.com/gulpjs/gulp "Gulp")
-  This package is using Gulp 4.0, so you will need to install this package globally. If you have already install Gulp 3.x, you need to uninstall it first. You will still be able to run projects that depend on Gulp 3.x afterwards.
-
-	```
-	$ npm uninstall gulp -g
-	$ npm install gulpjs/gulp-cli#4.0 -g
-	```
-
 After the required tools are installed, you should download the required Node modules by calling:
 
 ```

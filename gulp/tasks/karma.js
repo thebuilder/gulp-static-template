@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var path = require('path');
-var fs = require('fs');
 var ip = require('../util/ip');
 var config = require('../config');
 
@@ -19,8 +18,16 @@ module.exports = function(done) {
 	}
 
 	karma.start(opts, function (exitCode) {
-		process.exit(exitCode);
+		if (opts.autoWatch || exitCode) {
+			process.exit(exitCode);
+		} else {
+			//Notify gulp that the task is complete
+			done();
+		}
 	});
 
-	done();
+	//If watching, complete the task now.
+	if (opts.autoWatch) {
+		done();
+	}
 };

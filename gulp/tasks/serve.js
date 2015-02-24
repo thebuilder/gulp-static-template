@@ -22,7 +22,6 @@ module.exports = function(done) {
 	//Serve the static files.
 	app.use(serveStatic(config.dist));
 
-
 	// Serve the src directory, so it can be used with source maps - Doesn't seem to be necessary anymore
 	//app.use('/src', serveStatic(config.src));
 	//app.use('/bower_components', serveStatic('bower_components/'));
@@ -33,20 +32,6 @@ module.exports = function(done) {
 
 	gutil.log("Webserver: " + gutil.colors.magenta("http://localhost:" + config.server.port) + " or " + gutil.colors.magenta("http://" + ip() + ":" + config.server.port));
 
-	liveReloadWatcher();
 	done();
 };
 
-/*
-* Watch all files in the dist directory, and trigger livereload on changes.
-*/
-function liveReloadWatcher() {
-	var watch = require('gulp-watch');
-	var liveReload = require('gulp-livereload');
-
-	//Configure LiveReload, and watch for changes in the dist directory.
-	liveReload.listen({quiet:true, start:true, basePath: 'dist'});
-	gutil.log('LiveReload: ' + gutil.colors.magenta('Port ' + liveReload.server.port));
-	watch(config.dist + '**/*.*')
-		.pipe(liveReload());
-}
