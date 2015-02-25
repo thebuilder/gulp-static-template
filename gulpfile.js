@@ -10,11 +10,10 @@ args.parse();
  *******************/
 //Tasks in the project
 gulp.task('browserify', require('./gulp/tasks/browserify'));
+gulp.task('browsersync', require('./gulp/tasks/browsersync'));
 gulp.task('images', require('./gulp/tasks/images'));
 gulp.task('jade', require('./gulp/tasks/jade'));
 gulp.task('less', require('./gulp/tasks/less'));
-gulp.task('livereload', require('./gulp/tasks/livereload'));
-gulp.task('serve', require('./gulp/tasks/serve'));
 gulp.task('karma', require('./gulp/tasks/karma'));
 
 //Task aliases - These tasks combines multiple tasks to accomplish what you need.
@@ -26,7 +25,7 @@ gulp.task('build', function(done) {
 gulp.task('dev', function(done) {
 	var watching = args.watch(); //Will return true if watch mode configured. Will be false if running a monitor task.
 	if (watching) {
-		sequence('build', 'karma', 'serve', 'livereload', done);
+		sequence('build', 'karma', 'browsersync', done);
 	}
 });
 

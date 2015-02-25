@@ -22,10 +22,6 @@ module.exports = function(done) {
 	//Serve the static files.
 	app.use(serveStatic(config.dist));
 
-	// Serve the src directory, so it can be used with source maps - Doesn't seem to be necessary anymore
-	//app.use('/src', serveStatic(config.src));
-	//app.use('/bower_components', serveStatic('bower_components/'));
-
 	var server = http.createServer(app);
 	server.listen(config.server.port);
 	server.on("error", handleErrors, false);

@@ -4,8 +4,7 @@ module.exports = {
 	dist: 'dist/',
 
 	server: {
-		port: '3000',
-		log: false
+		port: '3000'
 	},
 
 	js: {
