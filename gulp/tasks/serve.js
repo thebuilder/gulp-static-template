@@ -1,8 +1,3 @@
-var gutil = require('gulp-util');
-var config  = require('../config');
-var handleErrors = require('../util/handleErrors');
-
-
 /**
  * Setup a local webserver.
  */
@@ -10,7 +5,11 @@ module.exports = function(done) {
 	var connect = require('connect');
 	var http    = require('http');
 	var serveStatic = require('serve-static');
+	var gutil = require('gulp-util');
+
 	var ip = require('../util/ip');
+	var config  = require('../config');
+	var handleErrors = require('../util/handleErrors');
 
 	var app = connect();
 	//Configure server to inject LiveReload script
