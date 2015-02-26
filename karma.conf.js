@@ -11,6 +11,13 @@ module.exports = function (config) {
 			'src/js/**/*.spec.js',
 			'dist/js/app.js'
 		],
+		preprocessors: {
+			'src/js/**/*.spec.js': ['browserify'],
+			'dist/js/app.js': ['sourcemap']
+		},
+		browserify: {
+			debug: true
+		},
 
 		// test results reporter to use
 		// possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
@@ -45,13 +52,6 @@ module.exports = function (config) {
 
 		// Continuous Integration mode
 		// if true, it capture browsers, run tests and exit
-		singleRun: false,
-		browserify: {
-			debug: true
-		},
-		preprocessors: {
-			'src/js/**/*.spec.js': ['browserify'],
-			'dist/js/app.js': ['sourcemap']
-		}
+		singleRun: false
 	});
 };

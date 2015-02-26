@@ -28,6 +28,10 @@ module.exports = {
 		dir: 'images'
 	},
 
+	assets: {
+		src: ['src/assets/**.*']
+	},
+
 	isProduction: function() {
 		return process.env.NODE_ENV == "production";
 	},
