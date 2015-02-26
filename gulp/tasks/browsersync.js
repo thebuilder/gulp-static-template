@@ -18,6 +18,7 @@ module.exports = function(done) {
 		server: {
 			baseDir: "./" + config.dist
 		},
+		//proxy: 'localhost:8080',
 		port: config.server.port,
 
 		logLevel: 'info',
