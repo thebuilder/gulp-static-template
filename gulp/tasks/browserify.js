@@ -3,9 +3,10 @@ var gutil = require("gulp-util");
 var path = require("path");
 var handleErrors = require("../util/handleErrors");
 var source = require('vinyl-source-stream');
+var es = require('event-stream');
 var _ = require('lodash');
-
 var config = require('../config');
+var compileError = false;
 
 module.exports = function() {
 	//Require Browserify
@@ -62,11 +63,18 @@ function bundle(bundler) {
 	return bundler.bundle()
 		.on('error', function(error) {
 			handleErrors(error); //Break the pipe by placing error handler outside
+			compileError = true;
 			this.emit('end');
 		})
 		//Output the .js file
 		.pipe(source(config.isProduction() ? 'app.min.js' : 'app.js'))
 		.pipe(gulp.dest(config.dist + 'js'))
+
+		//Notify the user on successful compile, after an error
+		.pipe(compileError ? es.map(function(file, cb) {
+			if (compileError) gutil.log(gutil.colors.green("JS compiled"));
+			compileError = false;
+		}) : gutil.noop());
 }
 
 /**

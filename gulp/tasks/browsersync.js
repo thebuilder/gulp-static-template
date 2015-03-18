@@ -24,7 +24,8 @@ module.exports = function(done) {
 		logLevel: 'info',
 		logPrefix: "BrowserSync",
 		logFileChanges: false,
-		notify: false
+		notify: false,
+		open: process.env.MONITOR_GULP != 'true'
 	};
 
 	//Start the BrowserSync server

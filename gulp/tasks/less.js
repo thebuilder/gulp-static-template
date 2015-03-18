@@ -1,6 +1,7 @@
 var gulp         = require('gulp');
 var gutil        = require('gulp-util');
 var config       = require('../config');
+var compileError = false;
 
 module.exports = function() {
 	//If watch mode, start watching for changes.
@@ -22,11 +23,14 @@ function execute() {
 	var rename       = require('gulp-rename');
 	var sourcemaps   = require('gulp-sourcemaps');
 	var plumber      = require('gulp-plumber');
+	var es 			 = require('event-stream');
 	var handleErrors = require('../util/handleErrors');
 
 	return gulp.src(config.less.src)
-		// Pass in options to the task
-		.pipe(plumber({errorHandler:handleErrors}))
+		.pipe(plumber({errorHandler:function(args) {
+			compileError = true;
+			handleErrors(args);
+		}}))
 		.pipe(sourcemaps.init())
 		.pipe(less({
 			plugins: getPlugins()
@@ -36,7 +40,13 @@ function execute() {
 		.pipe(config.isProduction() ? rename(function(file) {
 			file.basename += ".min";
 		}) : gutil.noop())
-		.pipe(gulp.dest(config.dist + 'css'));
+		.pipe(gulp.dest(config.dist + 'css'))
+
+		//Notify the user on successful compile, after an error
+		.pipe(compileError ? es.map(function(file, cb) {
+			if (compileError) gutil.log(gutil.colors.green("LESS compiled"));
+			compileError = false;
+		}) : gutil.noop());
 }
 
 /**

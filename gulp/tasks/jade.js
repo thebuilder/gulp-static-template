@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var config = require('../config');
+var compileError = false;
 
 module.exports = function() {
 	//If watch mode, start watching for changes.
@@ -13,18 +14,31 @@ module.exports = function() {
 
 function execute() {
 	var jade = require('gulp-jade');
+	var gutil = require('gulp-util');
 	var changed = require('gulp-changed');
 	var data = require('gulp-data');
 	var plumber = require('gulp-plumber');
+	var es 		= require('event-stream');
 
 	var handleErrors = require('../util/handleErrors');
 
 	return gulp.src(config.jade.src)
-		.pipe(plumber({errorHandler:handleErrors}))
+		.pipe(plumber({errorHandler:function(args) {
+			compileError = true;
+			handleErrors(args);
+		}}))
 		.pipe(data(getData))
 		.pipe(jade({pretty: false}))
+
+		//Notify the user on successful compile, after an error
+		.pipe(compileError ? es.map(function(file, cb) {
+			if (compileError) gutil.log(gutil.colors.green("JADE compiled"));
+			compileError = false;
+		}) : gutil.noop())
+
 		.pipe(changed(config.dist, {hasChanged: changed.compareSha1Digest}))
 		.pipe(gulp.dest(config.dist));
+
 }
 
 function getData() {

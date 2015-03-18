@@ -27,7 +27,7 @@ exports.parse = function() {
 exports.watch = function() {
 	if (process.env.MONITOR_GULP == 'true') {
 		//Start the Gulp Monitor process. This will stop the current gulp task flow in this process - It will be restarted in the new instance.
-		require('./tasks/monitor')();
+		require('./util/monitor')();
 		return false;
 	} else {
 		process.env.WATCHING = 'true';
