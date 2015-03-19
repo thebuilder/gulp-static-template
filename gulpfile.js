@@ -9,16 +9,18 @@ args.parse();
  * GULP TASKS
  *******************/
 //Tasks in the project
+gulp.task('assets', require('./gulp/tasks/assets'));
 gulp.task('browserify', require('./gulp/tasks/browserify'));
 gulp.task('browsersync', require('./gulp/tasks/browsersync'));
 gulp.task('images', require('./gulp/tasks/images'));
 gulp.task('jade', require('./gulp/tasks/jade'));
 gulp.task('less', require('./gulp/tasks/less'));
 gulp.task('karma', require('./gulp/tasks/karma'));
+gulp.task('vendor', require('./gulp/tasks/vendor'));
 
 //Task aliases - These tasks combines multiple tasks to accomplish what you need.
 gulp.task('build', function(done) {
-	sequence('browserify', 'less', 'jade', 'images', done);
+	sequence('vendor', 'browserify', 'less', 'jade', 'images', 'assets', done);
 });
 
 //Main entry tasks

@@ -35,5 +35,14 @@ Runs the tasks supplied in watch mode. So calling `gulp less --watch` will compi
 ##### --release
 Runs the tasks supplied in production mode. By default tasks are run in dev mode, but you can use this argument to override it.
 
-##### --monitor
-Starts gulp in self monitoring mode. It will restart itself if you change the *gulpfile.js*, *package.json* or any files located in the *gulp* directory.
+## Setup
+### Vendor libs
+A seperate 'vendor.js' file is created when compiling, that includes third party .js files. You can require these in your app, where you need them.
+
+To a library, you should include it in the `browser`field, inside `package.json`, like:
+
+```
+"browser": {
+  "gsap": "./node_modules/gsap/src/uncompressed/TweenMax.js"
+}
+```

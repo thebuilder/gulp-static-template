@@ -8,21 +8,22 @@
   "license": "MIT",
   "browserify": {
     "transform": [
-      "browserify-shim",
       "browserify-plain-jade",
       "partialify"
     ]
   },
-  "browserify-shim": {},
+  "browser": {
+    "gsap": "./node_modules/gsap/src/uncompressed/TweenMax.js"
+  },
   "devDependencies": {
     "browser-sync": "^2.3.1",
     "browserify": "^9.0.3",
     "browserify-plain-jade": "^0.2.2",
-    "browserify-shim": "^3.8.2",
     "del": "^1.1.1",
     "event-stream": "^3.2.2",
     "gulp": "^3.8.0",
     "gulp-changed": "^1.1.1",
+    "gulp-concat": "^2.5.2",
     "gulp-data": "^1.2.0",
     "gulp-filter": "^2.0.1",
     "gulp-imagemin": "^2.1.0",
@@ -35,8 +36,9 @@
     "gulp-svg2png": "^0.3.0",
     "gulp-util": "^3.0.3",
     "gulp-watch": "^4.2.0",
+    "imagemin-jpeg-recompress": "^4.1.0",
     "karma": "^0.12.31",
-    "karma-browserify": "^3.0.2",
+    "karma-browserify": "^4.0.0",
     "karma-chrome-launcher": "^0.1.7",
     "karma-clear-screen-reporter": "0.0.1",
     "karma-firefox-launcher": "^0.1.4",
@@ -48,7 +50,6 @@
     "lodash": "^3.1.0",
     "partialify": "^3.1.3",
     "run-sequence": "^1.0.2",
-    "serve-static": "^1.8.1",
     "uglifyify": "^3.0.1",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.4.0"
