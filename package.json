@@ -13,7 +13,7 @@
     ]
   },
   "browser": {
-    "gsap": "./node_modules/gsap/src/uncompressed/TweenMax.js"
+    "./shared": "./src/js/shared.js"
   },
   "devDependencies": {
     "browser-sync": "^2.3.1",
@@ -23,7 +23,6 @@
     "event-stream": "^3.2.2",
     "gulp": "^3.8.0",
     "gulp-changed": "^1.1.1",
-    "gulp-concat": "^2.5.2",
     "gulp-data": "^1.2.0",
     "gulp-filter": "^2.0.1",
     "gulp-imagemin": "^2.1.0",

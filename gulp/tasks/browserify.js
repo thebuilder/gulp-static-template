@@ -37,11 +37,15 @@ module.exports = function() {
 	bundler.add(path.resolve(config.js.src));
 
 	//Add all browser packages as external dependencies
-	if (pck.browser) {
-		_.forEach(pck.browser, function(path, key) {
-			bundler.external(key);
-		})
-	}
+	_.forEach(pck.browser, function(path, key) {
+		bundler.external(key);
+	});
+
+	//Add all config.js libs as external dependencies
+	_.forEach(config.libs, function(path, key) {
+		bundler.external(key);
+		bundler.external(path);
+	});
 
 	//Add transforms for production
 	if (config.isProduction()) addProdTransforms(bundler);

@@ -3,28 +3,28 @@ var handleErrors = require("../util/handleErrors");
 var source = require('vinyl-source-stream');
 var _ = require('lodash');
 var config = require('../config');
+var watchStream = null;
 
 module.exports = function() {
 	if (config.isWatching()) {
 		var watch = require('gulp-watch');
 		//Create a watch stream. It will trigger execute when a file is changed
-		watch('package.json', packageVendor);
+		watchStream = watch('package.json', packageVendor);
 	}
 
 	return packageVendor();
 };
 
-
 function packageVendor() {
 	//Require Browserify
 	var browserify = require('browserify');
+	var path = require('path');
 	var fs = require('fs');
 
 	//Read package.json
 	var pck = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 	//Setup options
-	var watch = config.isWatching();
 	var opts = {
 		debug:!config.isProduction(),
 		extensions: [".js"],
@@ -34,11 +34,10 @@ function packageVendor() {
 	var bundler = browserify(opts);
 
 	//Add all browser packages as external dependencies
-	if (pck.browser) {
-		_.forEach(pck.browser, function(path, key) {
-			bundler.require(path, {expose: key})
-		})
-	}
+	_.forEach(pck.browser, function(path, key) {
+		bundler.require(path, {expose: key})
+		if (watchStream) watchStream.add(path); //Watch file for changes?
+	});
 
 	//Add transforms for production
 	if (config.isProduction()) addProdTransforms(bundler);
