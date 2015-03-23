@@ -46,3 +46,21 @@ To add a library, you should include it in the `browser`field, inside `package.j
   "gsap": "./node_modules/gsap/src/uncompressed/TweenMax.js"
 }
 ```
+
+### FTP
+To upload the dist directory to FTP, you should create a `.ftp.json` file in the gulp directory.
+
+The `.ftp.json` file should have the following structure, based on the options used by vinyl-ftp: https://www.npmjs.com/package/vinyl-ftp
+
+```
+[{
+  "id": "demo",
+  "options": {
+    "host": "",
+    "port": 21,
+    "user": "",
+    "pass": "",
+    "remotePath": "/"
+  }
+}]
+```

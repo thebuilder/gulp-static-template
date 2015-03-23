@@ -41,10 +41,9 @@ module.exports = function() {
 		bundler.external(key);
 	});
 
-	//Add all config.js libs as external dependencies
-	_.forEach(config.libs, function(path, key) {
+	//Add all node dependencies as external dependencies
+	_.forEach(pck.dependencies, function(path, key) {
 		bundler.external(key);
-		bundler.external(path);
 	});
 
 	//Add transforms for production

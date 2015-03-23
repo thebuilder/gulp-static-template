@@ -17,6 +17,7 @@ gulp.task('jade', require('./gulp/tasks/jade'));
 gulp.task('less', require('./gulp/tasks/less'));
 gulp.task('karma', require('./gulp/tasks/karma'));
 gulp.task('vendor', require('./gulp/tasks/vendor'));
+gulp.task('ftp', require('./gulp/tasks/ftp'));
 
 //Task aliases - These tasks combines multiple tasks to accomplish what you need.
 gulp.task('build', function(done) {
@@ -34,6 +35,11 @@ gulp.task('dev', function(done) {
 gulp.task('release', function(done) {
 	args.production();
 	sequence('build', 'karma', done)
+});
+
+gulp.task('deploy', function(done) {
+	args.production();
+	sequence('release', 'ftp', done)
 });
 
 gulp.task('default', ['dev']);
