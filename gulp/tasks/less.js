@@ -26,6 +26,7 @@ function execute() {
 	var minifyCSS 	 = require('gulp-minify-css');
 	var plumber      = require('gulp-plumber');
 	var es 			 = require('event-stream');
+
 	var handleErrors = require('../util/handleErrors');
 
 	var includeSourceMaps = !config.isProduction();
@@ -53,7 +54,9 @@ function execute() {
 			keepBreaks:false,
 			compatibility: 'ie8'
 		}) : gutil.noop())
+
 		.pipe(includeSourceMaps ? sourcemaps.write() : gutil.noop())
+
 		.pipe(config.isProduction() ? rename(function(file) {
 			file.basename += ".min";
 		}) : gutil.noop())

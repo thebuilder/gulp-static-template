@@ -32,6 +32,14 @@ module.exports = {
 		src: ['src/assets/**.*']
 	},
 
+	test: {
+		files:  [
+			'src/js/**/*.spec.js',
+			'dist/js/vendor.js',
+			'dist/js/app.js'
+		]
+	},
+
 	isProduction: function() {
 		return process.env.NODE_ENV == "production";
 	},

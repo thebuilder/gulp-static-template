@@ -1,3 +1,5 @@
+var conf = require('./gulp/config');
+
 module.exports = function (config) {
 	config.set({
 		// base path, that will be used to resolve files and exclude
@@ -7,11 +9,8 @@ module.exports = function (config) {
 		frameworks: ['browserify', 'jasmine'],
 
 		// list of files / patterns to load in the browser
-		files: [
-			'src/js/**/*.spec.js',
-			'dist/js/vendor.js',
-			'dist/js/app.js'
-		],
+		files: conf.test.files,
+
 		preprocessors: {
 			'src/js/**/*.spec.js': ['browserify'],
 			'dist/js/app.js': ['sourcemap']

@@ -10,6 +10,7 @@ args.parse();
  *******************/
 //Tasks in the project
 gulp.task('assets', require('./gulp/tasks/assets'));
+gulp.task('clean', require('./gulp/tasks/clean'));
 gulp.task('browserify', require('./gulp/tasks/browserify'));
 gulp.task('browsersync', require('./gulp/tasks/browsersync'));
 gulp.task('images', require('./gulp/tasks/images'));
@@ -34,11 +35,10 @@ gulp.task('dev', function(done) {
 
 gulp.task('release', function(done) {
 	args.production();
-	sequence('build', 'karma', done)
+	sequence('clean', 'build', 'karma', done)
 });
 
 gulp.task('deploy', function(done) {
-	args.production();
 	sequence('release', 'ftp', done)
 });
 

@@ -49,12 +49,15 @@ function deploy() {
  * @returns {*}
  */
 function getTarget() {
-	var ftpTargets = require('../.ftp.json');
+	var fs = require( 'fs' );
 
-	if (!ftpTargets) {
+	//Check if the FTP props file exists.
+	if (!fs.existsSync('.ftp.json')) {
 		gutil.log(gutil.colors.red("Error:"), "No '.ftp.json' file found. Make sure it is created.");
 		return null;
 	}
+
+	var ftpTargets = JSON.parse(fs.readFileSync('.ftp.json', 'utf-8'));
 	if (!ftpTargets.length) {
 		gutil.log(gutil.colors.red("Error:"), "'.ftp.json' file is empty. Make sure it contains at least one deploy target.");
 		return null;
