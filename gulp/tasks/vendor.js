@@ -39,9 +39,9 @@ function packageVendor() {
 		if (watchStream) watchStream.add(path); //Watch file for changes?
 	});
 
-	_.forEach(pck.dependencies, function(path, key) {
-		bundler.require(key)
-	});
+	//_.forEach(pck.dependencies, function(path, key) {
+	//	bundler.require(key)
+	//});
 
 	//Add transforms for production
 	if (config.isProduction()) addProdTransforms(bundler);
