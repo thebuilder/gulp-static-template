@@ -5,6 +5,10 @@ var _ = require('lodash');
 var config = require('../config');
 var watchStream = null;
 
+//This node modules will not be included in the vendor file, even if they are present in the package.json dependencies field.
+//Use for modules without .js, like normalize.css.
+var excludedModules = ['normalize.css', 'bootstrap'];
+
 module.exports = function() {
 	if (config.isWatching()) {
 		var watch = require('gulp-watch');
@@ -33,22 +37,24 @@ function packageVendor() {
 
 	var bundler = browserify(opts);
 
-	//Add all browser packages as external dependencies
+	//Add all browser packages as required libs
 	_.forEach(pck.browser, function(path, key) {
-		bundler.require(path, {expose: key})
+		bundler.require(path, {expose: key});
 		if (watchStream) watchStream.add(path); //Watch file for changes?
 	});
 
-	//_.forEach(pck.dependencies, function(path, key) {
-	//	bundler.require(key)
-	//});
+	//Add all package dependencies as required libs
+	_.forEach(pck.dependencies, function(path, key) {
+		if (_.indexOf(excludedModules, key) == -1) {
+			bundler.require(key)
+		}
+	});
 
 	//Add transforms for production
 	if (config.isProduction()) addProdTransforms(bundler);
 
 	return bundle(bundler);
-};
-
+}
 function addProdTransforms(bundler) {
 	//Uglify when compiling for release
 	bundler.transform({

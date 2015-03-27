@@ -23,4 +23,4 @@ function copyAssets() {
 		.pipe(plumber())
 		.pipe(changed(config.dist)) // Ignore unchanged files
 		.pipe(gulp.dest(config.dist));
-};
+}

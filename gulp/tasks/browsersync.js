@@ -35,6 +35,7 @@ module.exports = function(done) {
 		done();
 	});
 
+
 	//Watch for changes and reload BrowserSync
 	watch(config.dist + '**/*.*')
 		.pipe(browserSync.reload({stream:true}));

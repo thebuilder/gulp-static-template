@@ -1,4 +1,3 @@
-var conf = require('./gulp/config');
 
 module.exports = function (config) {
 	config.set({
@@ -9,7 +8,7 @@ module.exports = function (config) {
 		frameworks: ['browserify', 'jasmine'],
 
 		// list of files / patterns to load in the browser
-		files: conf.test.files,
+		files: require('./gulp/config').test.files,
 
 		preprocessors: {
 			'src/js/**/*.spec.js': ['browserify'],

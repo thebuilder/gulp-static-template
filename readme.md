@@ -20,11 +20,11 @@ $ npm install
 
 ## Gulp
 ### Tasks
-All the individual tasks are located in *gulp/tasks/*. They are self contained, and can be run independent of each other.
+All the individual tasks are located in `./gulp/tasks/`. They are self contained, and can be run independent of each other.
 If you are running in watch mode, the tasks will configure their own watch logic.
 
 ### Config
-Base paths are all defined in *gulp/config.js*. Feel free to change these to suit your needs.
+Base paths are all defined in `./gulp/config.js/. Feel free to change these to suit your needs.
 
 ### Gulp Arguments
 When calling `gulp`, you can pass it the following arguments in addition to tasks.
@@ -35,22 +35,10 @@ Runs the tasks supplied in watch mode. So calling `gulp less --watch` will compi
 ##### --release
 Runs the tasks supplied in production mode. By default tasks are run in dev mode, but you can use this argument to override it.
 
-## Setup
-### Vendor libs
-A seperate 'vendor.js' file is created when compiling, that includes third party .js files. You can require these in your app, where you need them.
-
-To add a library, you should include it in the `browser`field, inside `package.json`, like:
-
-```
-"browser": {
-  "gsap": "./node_modules/gsap/src/uncompressed/TweenMax.js"
-}
-```
-
 ### FTP
-To upload the dist directory to FTP, you should create a `.ftp.json` file in the gulp directory.
+To enable FTP so you can upload the **dist** directory, you should create a `.ftp.json` file in the gulp directory.
 
-The `.ftp.json` file should have the following structure, based on the options used by vinyl-ftp: https://www.npmjs.com/package/vinyl-ftp
+The `.ftp.json` file should have the following structure, based on the options used by [https://www.npmjs.com/package/vinyl-ftp](vinly-ftp):
 
 ```
 [{
@@ -64,3 +52,25 @@ The `.ftp.json` file should have the following structure, based on the options u
   }
 }]
 ```
+
+## Browserify
+The `app.js` file is compiled using Browserify. This allows you to **require()** files you need, and ensures everything is encapsulated.
+
+A seperate `vendor.js` file is created when compiling. It includes .js libs, that should not be part of your main app.js. You can require these in your app, where you need them.
+
+You control the libraries included through `package.json`.
+
+###dependencies
+All **node_modules** that should be included in the project, should be listed as dependencies. When compiling the project with Browserify, all these modules will be included in `vendor.js` and excluded from `app.js`.
+
+### browser
+If a **node_module** should use a special `.js` file, are you need to add your own files, you should add them in the `browser` field. This will override the default .js file associated with a module. 
+
+```
+"browser": {
+  "gsap": "./node_modules/gsap/src/uncompressed/TweenMax.js",
+  "./shared": "./src/js/shared.js"
+}
+```
+
+
