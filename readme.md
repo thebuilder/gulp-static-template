@@ -1,3 +1,5 @@
+![image](https://codeship.com/projects/2c9eec40-b6b7-0132-2991-5a80fed4d730/status?branch=master)
+
 Gulp Tasks Repository
 =====================
 This is a repository containing various Gulp tasks, that can be used in your projects.
