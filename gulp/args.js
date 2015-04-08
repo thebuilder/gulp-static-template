@@ -11,7 +11,7 @@ exports.parse = function() {
 	if (process.env.WATCHING == 'true') gutil.log(gutil.colors.green("Watching"));
 
 	//Check for release or production target flag
-	if (gutil.env['release'] || gutil.env['production'] || gutil.env['r'] || gutil.env['target'] == 'production') {
+	if (gutil.env['release'] || gutil.env['production'] || gutil.env['r'] || gutil.env['prod'] || gutil.env['target'] == 'production') {
 		process.env.NODE_ENV = 'production';
 		gutil.log("Target ENV: " + gutil.colors.green(process.env.NODE_ENV));
 	}

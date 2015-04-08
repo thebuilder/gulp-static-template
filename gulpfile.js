@@ -15,14 +15,14 @@ gulp.task('browserify', require('./gulp/tasks/browserify'));
 gulp.task('browsersync', require('./gulp/tasks/browsersync'));
 gulp.task('images', require('./gulp/tasks/images'));
 gulp.task('jade', require('./gulp/tasks/jade'));
-gulp.task('less', require('./gulp/tasks/less'));
+gulp.task('styles', require('./gulp/tasks/styles'));
 gulp.task('karma', require('./gulp/tasks/karma'));
 gulp.task('vendor', require('./gulp/tasks/vendor'));
 gulp.task('ftp', require('./gulp/tasks/ftp'));
 
 //Task aliases - These tasks combines multiple tasks to accomplish what you need.
 gulp.task('build', function(done) {
-	sequence('vendor', 'browserify', 'less', 'jade', 'images', 'assets', done);
+	sequence('vendor', 'browserify', 'styles', 'jade', 'images', 'assets', done);
 });
 
 //Main entry tasks

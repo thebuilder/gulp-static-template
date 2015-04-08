@@ -12,9 +12,11 @@ module.exports = {
 		watch: 'src/js/**/*.js'
 	},
 
-	less: {
-		src: ['src/less/*.less', '!src/less/_*.less'],
-		watch: 'src/less/**/{*.less,*.css}'
+	style: {
+		//Supported preprocessors: 'less', 'stylus' or null
+		preprocessor: 'stylus',
+		src: ['src/style/*.{less,styl}', '!src/style/_*.*'],
+		watch: 'src/style/**/{*.less,*.css,*.styl}'
 	},
 
 	jade: {

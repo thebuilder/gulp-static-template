@@ -10,16 +10,20 @@ module.exports = function(done) {
 	var watch = require('gulp-watch');
 
 	var handleErrors = require('../util/handleErrors');
+	var log = require('../util/log-file');
 	var config  = require('../config');
 
 	//See http://www.browsersync.io/docs/options/ for all options
 	//By default it runs a server. You could instead tell it to setup a proxy to an existing server, like - proxy: 'localhost.dev'.
 	var options = {
 		server: {
-			baseDir: "./" + config.dist
+			baseDir: config.dist
 		},
 		//proxy: 'localhost:8080',
 		port: config.server.port,
+
+		//Files to watch for changes
+		files: [config.dist + "css/*.*", "!" + config.dist + "**/*.html"],
 
 		logLevel: 'info',
 		logPrefix: "BrowserSync",
@@ -35,8 +39,8 @@ module.exports = function(done) {
 		done();
 	});
 
-
 	//Watch for changes and reload BrowserSync
-	watch(config.dist + '**/*.*')
-		.pipe(browserSync.reload({stream:true}));
+	//watch([config.dist + '**/*.*'])
+	//	.pipe(log("Changed"))
+	//	.pipe(browserSync.reload({stream:true}));
 };

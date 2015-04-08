@@ -7,6 +7,7 @@ module.exports = function() {
 	if (config.isWatching()) {
 		var watch = require('gulp-watch');
 		watch(config.jade.watch, execute);
+
 	}
 
 	return execute();
@@ -18,6 +19,7 @@ function execute() {
 	var changed = require('gulp-changed');
 	var data = require('gulp-data');
 	var plumber = require('gulp-plumber');
+	var browserSync = require('browser-sync');
 	var es 		= require('event-stream');
 
 	var handleErrors = require('../util/handleErrors');
@@ -36,8 +38,15 @@ function execute() {
 			compileError = false;
 		}) : gutil.noop())
 
+		//Only write out changed files.
 		.pipe(changed(config.dist, {hasChanged: changed.compareSha1Digest}))
-		.pipe(gulp.dest(config.dist));
+
+		.pipe(gulp.dest(config.dist))
+
+		.on('end', function(e) {
+			//Reload the browser after .html files have been compiled. Otherwise you can run into timing issues.
+			browserSync.reload();
+		})
 
 }
 

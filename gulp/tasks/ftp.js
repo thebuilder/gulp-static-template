@@ -38,7 +38,7 @@ function deploy() {
 	var conn = ftp.create(options);
 
 	// using base = '.' will transfer everything to dist correctly
-	return gulp.src(config.dist + "**/*.*", { base: config.dist, buffer: false } )
+	return gulp.src("**/*.*", { base: config.dist, cwd: config.dist, buffer: false } )
 		.pipe(conn.newer(options.remotePath)) // only upload newer files
 		.pipe(es.map(logFiles))
 		.pipe(conn.dest(options.remotePath));
