@@ -7,10 +7,7 @@
  */
 module.exports = function(done) {
 	var browserSync = require('browser-sync');
-	var watch = require('gulp-watch');
-
 	var handleErrors = require('../util/handleErrors');
-	var log = require('../util/log-file');
 	var config  = require('../config');
 
 	//See http://www.browsersync.io/docs/options/ for all options
@@ -23,7 +20,7 @@ module.exports = function(done) {
 		port: config.server.port,
 
 		//Files to watch for changes
-		files: [config.dist + "css/*.*", "!" + config.dist + "**/*.html"],
+		files: [config.dist + "**/*.*", "!" + config.dist + "**/*.html"],
 
 		logLevel: 'info',
 		logPrefix: "BrowserSync",
@@ -40,6 +37,8 @@ module.exports = function(done) {
 	});
 
 	//Watch for changes and reload BrowserSync
+	//var watch = require('gulp-watch');
+	//var log = require('../util/log-file');
 	//watch([config.dist + '**/*.*'])
 	//	.pipe(log("Changed"))
 	//	.pipe(browserSync.reload({stream:true}));
