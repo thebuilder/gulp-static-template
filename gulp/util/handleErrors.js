@@ -1,7 +1,8 @@
 var notify = require("gulp-notify");
 
 var config = require('../config');
-var supportsNotifications = true;//!process.env["CI"]; //Disable notifications on CI server.
+var isWin = /^win/.test(process.platform);
+var supportsNotifications = !isWin && !process.env["CI"]; //Disable notifications on CI server and Windows.
 
 module.exports = function() {
     var args = Array.prototype.slice.call(arguments) || {};
@@ -15,7 +16,7 @@ module.exports = function() {
         }).apply(this, args);
     } else {
         //Gulp notify not supported on Windows, so print the message instead.
-		console.log("[Compile Error] " + args);
+		console.error("[Compile Error] " + args);
     }
 
     if (!config.isWatching()) {

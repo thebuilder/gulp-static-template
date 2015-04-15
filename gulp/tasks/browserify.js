@@ -18,7 +18,7 @@ var logChanges = false;
 
 //Setup options
 var opts = {
-	debug:!config.isProduction(),
+	debug: false,
 	extensions: [".js"],
 	fullPaths: false //Set fullpaths to false - Otherwise the files full path is used as the index.
 };
@@ -34,17 +34,30 @@ module.exports = function() {
 		watchStream = watch('package.json', packageVendor);
 	}
 
-	return es.merge(
-		packageApplication(),
-		packageVendor()
-	);
+	//Set debug mode
+	opts.debug = !config.isProduction();
+
+	var streams = [];
+
+	if (_.isArray(config.js.src)) {
+		//If src is an array of files, package each.
+		_.forEach(config.js.src, function(file, index) {
+			packageApplication(file);
+		});
+	} else {
+		packageApplication();
+	}
+	streams.push(packageVendor());
+	//console.log(streams);
+	return es.merge.apply(null, streams);
 };
 
 /**
  * Compile the main app.js file.
  * @returns {*}
  */
-function packageApplication() {
+function packageApplication(file) {
+	file = file || config.js.src;
 	//Require Browserify
 	var browserify = require('browserify');
 	var watchify = require('watchify');
@@ -56,8 +69,11 @@ function packageApplication() {
 		bundler = browserify(opts);
 	}
 
+	//Get the name, so it can be passed to the bundler
+	var name = path.basename(file, '.js');
+
 	//Add the assets - e.g. app.js
-	bundler.add(path.resolve(config.js.src));
+	bundler.add(path.resolve(file));
 
 	//Add external libs, they are provided by the vendor.js file.
 	addExternalLibs(bundler);
@@ -70,11 +86,11 @@ function packageApplication() {
 		if (logChanges) bundler.on('update', logFiles);
 		bundler.on('update', function() {
 			//On updates, rebundle the app.
-			bundle(bundler, 'app');
+			bundle(bundler, name);
 		});
 	}
 
-	return bundle(bundler, 'app');
+	return bundle(bundler, name);
 }
 
 /**

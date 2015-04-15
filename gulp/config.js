@@ -1,44 +1,50 @@
+//Root directories for the src and dist directory.
+var root = {
+	src: 'src/',
+	dist: 'dist/'
+};
+
 module.exports = {
 	//Paths
-	src: 'src/',
-	dist: 'dist/',
+	src: root.src,
+	dist: root.dist,
 
 	server: {
 		port: '3000'
 	},
 
 	js: {
-		src: 'src/js/app.js',
-		watch: 'src/js/**/*.js'
+		src: root.src + 'js/app.js'
 	},
 
 	style: {
 		//Supported preprocessors: 'less', 'stylus' or null
 		preprocessor: 'stylus',
-		src: ['src/style/*.{less,styl}', '!src/style/_*.*'],
-		watch: 'src/style/**/{*.less,*.css,*.styl}'
+		src: root.src + 'style/!(_)*.{less,styl}',
+		watch: root.src + 'style/**/{*.less,*.css,*.styl}'
 	},
 
 	jade: {
-		src: ['src/views/**/*.jade', '!src/views/**/_*.jade'],
-		watch: 'src/views/**/*.*',
-		data: 'src/data/'
+		base: root.src + 'views/',
+		src: root.src + 'views/**/!(_)*.jade',
+		watch: root.src + 'views/**/*.*',
+		data: root.src + 'data/'
 	},
 
 	img: {
-		src: 'src/images/**/{*.png,*.jpg,*.gif,*.svg,*.ico}',
+		src: root.src + 'images/**/{*.png,*.jpg,*.gif,*.svg,*.ico}',
 		dir: 'images'
 	},
 
 	assets: {
-		src: ['src/assets/**.*']
+		src: [root.src + 'assets/**.*']
 	},
 
 	test: {
 		files:  [
-			'src/js/**/*.spec.js',
-			'dist/js/vendor.js',
-			'dist/js/app.js'
+			root.src + 'js/**/*.spec.js',
+			root.dist + '/js/vendor.js',
+			root.dist + '/js/app.js'
 		]
 	},
 

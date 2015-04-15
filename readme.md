@@ -11,14 +11,11 @@ Currently Work in Progress
 The following tools are required when developing the project locally:
 
 ### Prerequisites
-* [Node.js](http://nodejs.org/ "Node")
+* [Node.js](http://nodejs.org/ "Node") -
   Make sure node is installed and paths are configured, so you can use **npm** from the terminal.
-
-After the required tools are installed, you should download the required Node modules by calling:
-
-```
-$ npm install
-```
+* [gulp](https://github.com/gulpjs/gulp) -
+  Install **gulp** globally, so you can execute it from the terminal: `$ npm install gulp -g`
+* Install all the project dependencies: `$ npm install`
 
 ## Gulp
 ### Tasks
