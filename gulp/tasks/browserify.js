@@ -14,7 +14,6 @@ var config = require('../config');
 var excludedModules = ['normalize.css', 'bootstrap'];
 var watchStream = null;
 var compileError = false;
-var logChanges = false;
 
 //Setup options
 var opts = {
@@ -83,7 +82,7 @@ function packageApplication(file) {
 
 	//Start watching
 	if (config.isWatching()) {
-		if (logChanges) bundler.on('update', logFiles);
+		if (config.logChanges) bundler.on('update', logFiles);
 		bundler.on('update', function() {
 			//On updates, rebundle the app.
 			bundle(bundler, name);
@@ -181,7 +180,7 @@ function bundle(bundler, name) {
 function logFiles(files) {
 	if (files) {
 		for (var i = 0; i < files.length; i++) {
-			gutil.log("Watchify: " + gutil.colors.magenta(path.relative(config.src, files[i])));
+			gutil.log("Changed: " + gutil.colors.magenta(path.relative(config.src, files[i])));
 		}
 	}
 }

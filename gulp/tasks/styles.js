@@ -7,10 +7,17 @@ module.exports = function() {
 	//If watch mode, start watching for changes.
 	if (config.isWatching()) {
 		var watch = require('gulp-watch');
-		watch(config.style.watch, execute);
+
+		watch(config.style.watch, function(file) {
+			//Log changed file
+			var fileName = file.path.substring(file.path.lastIndexOf("/") + 1);
+			if (config.logChanges) gutil.log("Changed:", gutil.colors.cyan(fileName));
+
+			execute();
+		});
 	}
 
-	//Execute the less task
+	//Execute the style task
 	return execute();
 };
 

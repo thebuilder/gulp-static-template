@@ -20,14 +20,14 @@ module.exports = function(done) {
 		port: config.server.port,
 
 		//Files to watch for changes
-		files: [config.dist + "**/*.*"],
-		reloadDebounce: 100,
+		files: [config.dist + "**/*.*", "!" + config.dist + "**/*.html"],
 
 		logLevel: 'info',
 		logPrefix: "BrowserSync",
 		logFileChanges: false,
 		notify: false,
-		open: false
+		open: false,
+		xip: true
 	};
 
 	//Start the BrowserSync server

@@ -9,26 +9,31 @@ module.exports = {
 	src: root.src,
 	dist: root.dist,
 
+	//Log out changed files.
+	logChanges: true,
+
 	server: {
 		port: '3000'
 	},
 
 	js: {
+		//Either a string to a file path, or an array of file paths.
 		src: root.src + 'js/app.js'
 	},
 
 	style: {
 		//Supported preprocessors: 'less', 'stylus' or null
 		preprocessor: 'stylus',
-		src: root.src + 'style/!(_)*.{less,styl}',
+		src: root.src + 'style/!(_)*.{less,styl}', //Compile all style files not starting with "_" in the root style directory.
 		watch: root.src + 'style/**/{*.less,*.css,*.styl}'
 	},
 
 	jade: {
 		base: root.src + 'views/',
 		src: root.src + 'views/**/!(_)*.jade',
-		watch: root.src + 'views/**/*.*',
-		data: root.src + 'data/'
+		watch: root.src + 'views/**/*.{json,html,jade}',
+		//Directory containing static .json data.
+		data: root.src + 'views/data/'
 	},
 
 	img: {
