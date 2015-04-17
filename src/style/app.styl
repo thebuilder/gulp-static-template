@@ -1,5 +1,7 @@
 @import "../../node_modules/normalize.css/normalize.css";
 
+@require "utils/*"
+
 $red = #f00
 $query-desktop = 'screen and (min-width 1024px)'
 
@@ -24,6 +26,13 @@ h1
 
 	&:hover
 		color black
+
+header
+	.icon
+		background-image('../images/burger.svg')
+
+
+
 
 //Can use globbing to load all styles in a directory.
 @require "components/*"

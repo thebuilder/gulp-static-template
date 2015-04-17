@@ -26,8 +26,7 @@ module.exports = function(done) {
 		logPrefix: "BrowserSync",
 		logFileChanges: false,
 		notify: false,
-		open: false,
-		xip: true
+		open: false
 	};
 
 	//Start the BrowserSync server

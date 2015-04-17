@@ -1,0 +1,14 @@
+/**
+* Method that creates a .png fallbackground background-image for .svg images.
+**/
+background-image($path)
+	//Figure out the extension of the path
+	ext = extname($path)
+	if (ext == '.svg')
+		urlPng = pathjoin(dirname($path), basename($path, ext) + '.png')
+		//Fallback to the .png version of the .svg
+		background-image url(urlPng)
+		background-image: url($path), none
+	else
+		//Otherwise just use the URL
+		background-image url($path)
