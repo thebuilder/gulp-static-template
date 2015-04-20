@@ -42,6 +42,10 @@ function execute(stream) {
 		//Minify the images
 		.pipe(imagemin({
 			progressive: true,
+			svgoPlugins: [
+				{removeViewBox: false},  //Need for IE resizing support
+				{removeXMLProcInst: false} //Need for files to be readable in Windows.
+			],
 			use: [jpegRecompress({
 				// Compress .jpg images - Ensures a quality 100% Photoshop image is changed to a more sane quality level.
 				// See https://github.com/imagemin/imagemin-jpeg-recompress for options. You can configure min/max quality target etc.
