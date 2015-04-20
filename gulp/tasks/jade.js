@@ -40,11 +40,9 @@ function execute(src) {
 	var changed = require('gulp-changed');
 	var data = require('gulp-data');
 	var plumber = require('gulp-plumber');
-	var browserSync = require('browser-sync');
 	var es = require('event-stream');
 
 	var handleErrors = require('../util/handleErrors');
-	var filesChanged = [];
 
 	return gulp.src(src, {base:config.jade.base})
 		.pipe(plumber({errorHandler:function(args) {
@@ -67,16 +65,8 @@ function execute(src) {
 		//Write the file out
 		.pipe(gulp.dest(config.dist))
 
-		//Add all changed files to Array
-		.pipe(es.map(function(file, cb) {
-			filesChanged.push(path.relative(config.dist, file.path));
-			cb(null, file)
-		}))
-
-		.on('end', function(e) {
-			//Reload the browser after .html files have been compiled. Otherwise you can run into timing issues if multiple jade files are compiled.
-			if (filesChanged.length) browserSync.reload(filesChanged);
-		})
+		//If BrowserSync instance, reload the stream
+		.pipe(config.browserSync ? config.browserSync.stream() : gutil.noop());
 
 }
 

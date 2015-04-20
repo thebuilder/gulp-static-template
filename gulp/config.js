@@ -59,5 +59,8 @@ module.exports = {
 
 	isWatching: function() {
 		return process.env.WATCHING == "true";
-	}
+	},
+
+	//BrowserSync instance is stored here.
+	browserSync: null
 };

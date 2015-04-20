@@ -6,9 +6,8 @@
  * For more information, see: http://www.browsersync.io
  */
 module.exports = function(done) {
-	var browserSync = require('browser-sync');
-	var handleErrors = require('../util/handleErrors');
 	var config  = require('../config');
+	config.browserSync = require("browser-sync").create();
 
 	//See http://www.browsersync.io/docs/options/ for all options
 	//By default it runs a server. You could instead tell it to setup a proxy to an existing server, like - proxy: 'localhost.dev'.
@@ -30,8 +29,10 @@ module.exports = function(done) {
 	};
 
 	//Start the BrowserSync server
-	browserSync(options, function(err, bs) {
-		if (err) handleErrors(err);
+	config.browserSync.init(options, function(err, bs) {
+		if (err) {
+			require('../util/handleErrors')(err);
+		}
 		//BrowserSync running
 		done();
 	});
