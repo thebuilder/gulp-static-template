@@ -1,38 +1,5 @@
 @import "../../node_modules/normalize.css/normalize.css";
-
+@require "_variables"
 @require "utils/*"
 
-$red = #f00
-$query-desktop = 'screen and (min-width 1024px)'
 
-//Border function
-createBorder(shown)
-	if shown == true
-		border 1px solid red
-	else
-		border 1 solid transparent
-
-body
-	background-color black
-	color white
-
-h1
-	color $red
-	padding-left 20px
-	padding-right 20px
-
-	@media $query-desktop
-		color yellow
-
-	&:hover
-		color black
-
-header
-	.icon
-		background-image('../images/burger.svg')
-
-
-
-
-//Can use globbing to load all styles in a directory.
-@require "components/*"

@@ -32,12 +32,13 @@ function execute(stream) {
 
 	return stream
 		.pipe(plumber({errorHandler:handleErrors}))
-		.pipe(changed(config.dist + config.img.dir)) // Ignore unchanged files
 
 		//Delete unlinked files from dist
 		.pipe(filterUnlinked)
 		.pipe(es.map(deleteUnlinkedImage))
 		.pipe(filterUnlinked.restore())
+
+		.pipe(changed(config.dist + config.img.dir)) // Ignore unchanged files
 
 		//Minify the images
 		.pipe(imagemin({

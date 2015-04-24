@@ -13,7 +13,6 @@
     ]
   },
   "browser": {
-    "./shared": "./src/js/shared.js"
   },
   "devDependencies": {
     "browser-sync": "^2.6.4",
