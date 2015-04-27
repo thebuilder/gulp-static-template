@@ -36,11 +36,4 @@ module.exports = function(done) {
 		//BrowserSync running
 		done();
 	});
-
-	//Watch for changes and reload BrowserSync
-	//var watch = require('gulp-watch');
-	//var log = require('../util/log-file');
-	//watch([config.dist + '**/*.*'])
-	//	.pipe(log("Changed"))
-	//	.pipe(browserSync.reload({stream:true}));
 };

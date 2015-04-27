@@ -30,11 +30,6 @@ module.exports = function(done) {
 		});
 	}
 
-	//Add the clear-screen reporter when watching.
-	//if (opts.autoWatch) {
-	//	opts.reporters = ['progress', 'clear-screen'];
-	//}
-
 	karma.start(opts, function (exitCode) {
 		if (opts.autoWatch || exitCode) {
 			process.exit(exitCode);
