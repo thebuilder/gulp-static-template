@@ -18,7 +18,8 @@ module.exports = {
 
 	js: {
 		//Either a string to a file path, or an array of file paths.
-		src: root.src + 'js/app.js'
+		src: root.src + 'js/app.js',
+		excludedModules: ['normalize.css', 'bootstrap', 'angular-mocks'] //These node modules will not be included in the vendor file, even if they are present in the package.json dependencies field.
 	},
 
 	style: {

@@ -9,9 +9,6 @@ var _ = require('lodash');
 var handleErrors = require("../util/handleErrors");
 var config = require('../config');
 
-//This node modules will not be included in the vendor file, even if they are present in the package.json dependencies field.
-//Use for modules without .js, like normalize.css.
-var excludedModules = ['normalize.css', 'bootstrap'];
 var watchStream = null;
 var compileError = false;
 
@@ -127,6 +124,7 @@ function addExternalLibs(bundler) {
 function addRequiredLibs(bundler) {
 	//Read package.json
 	var pck = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+	var excludedModules = config.js.excludedModules;
 
 	//Add all browser packages as required libs
 	_.forEach(pck.browser, function(path, key) {
