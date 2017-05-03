@@ -2,6 +2,8 @@
 
 Gulp Tasks Repository
 =====================
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/thebuilder/gulp-static-template.svg)](https://greenkeeper.io/)
 This is a repository containing various Gulp tasks, that can be used in your projects.
 They are all split in separate files, to make it easy to copy what you need.
 
